@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Settings file
+georgias/settings.py
+
+# C extensions
+*.so
+
+# Random Files
+*.swp
+*.swo
+
+# Migrations
+georgias/georgias/migrations/
+georgias/residents/migrations/
+
+

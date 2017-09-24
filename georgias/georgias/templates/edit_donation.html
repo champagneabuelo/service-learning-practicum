@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 650px}
+         
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%; 
+    }
+
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+    .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'admin_profile' %}">Georgia's Healing House</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'admin_profile' %}">Profile</a></li>
+        <li><a href="{% url 'resident_manage' %}">Residents</a></li>
+        <li class="active"><a href="{% url 'admin_staff' %}">Staff</a></li>
+	<li><a href="{% url 'admin_donate' %}">Donations</a></li>
+	<li><a href="{% url 'incident_report' %}">Incident Report</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'user_logout' %}"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="editDon" id="editDon">
+	<div class="panel panel-default">
+           <div class="panel-heading panel-heading-custom">
+              <h2 class="panel-title text-center">Edit Donation Information</h2>
+            </div>
+            <div class="panel-body">
+	<div class="row">
+	  <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+	    <form method = "POST" role="form">
+	      {% csrf_token %}
+	      
+              {% if message %}
+              <div class="alert alert-danger">
+              <strong>Incorrect input! </strong>{{message}}
+            </div>
+            {% endif %}
+	    
+	    {% if error_message %}
+            <div class="alert alert-danger">
+              <strong>System error! </strong>{{error_message}}
+            </div>
+            {% endif %}
+	    
+	    <br>
+	    
+	    <div class="row">
+	      <div class="col-xs-12 col-sm-6 col-md-6">
+		<div class="form-group">
+                  <input type="text" name="donorFirstName" id="donorFirstName" class="form-control input-lg" value="{{Donor.donorFirstName}}" required/>
+		</div>
+	      </div>
+	      <div class="col-xs-12 col-sm-6 col-md-6">
+		<div class="form-group">
+		  <input type="text" name="donorLastName" id="donorLastName" class="form-control input-lg" value="{{Donor.donorLastName}}" required/>
+		</div>
+	      </div>
+	    </div>
+	    <div class="form-group">
+	      <input type="text" name="donorEmail" id="donorEmail" class="form-control input-lg" value="{{Donor.donorEmail}}" required/>
+	    </div>
+	    <div class="form-group">
+	       <input type="text" name="donationAmount" id="donationAmount" class="form-control input-lg" value="{{Donor.donationAmount}}" required/>
+	     </div>
+	     
+	     <div class="row">
+	       <div class="col-xs-12 col-md-6"><input type="submit" value="Submit" class="btn btn-success btn-block btn-lg" id="submitBtn"></div>
+	       <div class="col-xs-12 col-md-6"><a href="{% url 'admin_donate' %}"><input href="" type="button" value="Cancel" class="btn btn-danger btn-block btn-lg" id="cnclBtn"></a></div>
+	     </div>
+	     
+	    </form>
+	  </div>
+	</div>
+	    </div>
+	 </div>
+      
+	  <br><br>
+	</div>
+
+
+<footer class="container-fluid text-center">
+  <p>12 Copyright Georgia's Friends. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
+
+

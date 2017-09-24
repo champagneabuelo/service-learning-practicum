@@ -1,0 +1,11 @@
+[
+	{
+                "model": "georgias.VolunteerHours",
+                "pk": 1,
+                "fields": {
+                        "volunteer": 1,
+                        "numHours": 0,
+                        "volDate": "2016-10-31"
+                }
+        }
+]

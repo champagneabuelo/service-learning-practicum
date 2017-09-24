@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 650px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 520%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+        color: white;
+        background-color: #245259;
+    }
+
+        .nav-pills > li.active > a:hover {
+            background-color: #245259;
+            color: white;
+        }
+        .nav-filter {
+	background-color:#999999;
+}
+
+.nav-pills>li>a {
+	color: #245259;
+}
+.nav-pills .open>a, .nav-pills .open>a:active, .nav-pills .open>a:focus{
+	background-color: #999999;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="{% url 'admin_profile' %}">Georgia's Healing House</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+	<li><a href="{% url 'admin_profile' %}">Profile</a></li>
+        <li class="active"><a href="{% url 'resident_manage' %}">Residents</a></li>
+        <li><a href="{% url 'admin_staff' %}">Staff</a></li>
+	<li><a href="{% url 'admin_donate' %}">Donations</a></li>
+	<li><a href="{% url 'incident_report' %}">Incident Report</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+	<li><a href="{% url 'user_logout' %}"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <ul class="nav nav-pills nav-stacked">
+	<li><a href="{% url 'resident_manage' %}">View Residents</a></li>
+	<li><a href="{% url 'applications' %}">View Applicants</a></li>
+	<li class="active"><a href="{% url 'resident_create' %}">Submit Application</a></li>
+          <li><a href="{% url 'interview_manage' %}">Interviewed Applicants</a></li>
+          <li><a href="{% url 'demographics' %}">View Resident Demographics</a></li>
+          <li><a href="{% url 'manage_termination' %}">Terminated Residents</a></li>
+      </ul>
+    </div>
+    <div class="col-sm-8 text-left">
+      <div class="container-page">
+        <h3 align="center">Submit Applicant Form</h3>
+        <hr>
+        <form role="form" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <!--<div class="row">                                                                                                                                                                             
+              {{ form.as_p }}                                                                                                                                                                               
+              </div>-->
+          <div class="row">
+            <div class="form-group col-lg-6">
+	      
+              <div class="fieldWrapper">
+		<label for="{{ form.resident_first.id_for_label }}">First Name</label><span class="error" style="color:red">*</span>
+		{{ form.resident_first }}
+              </div>
+            </div>
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+		
+		<label for="{{ form.resident_last.id_for_label }}">Last Name</label><span class="error" style="color:red">*</span>
+		{{ form.resident_last }}
+              </div>
+            </div>
+          </div>
+	  <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+		<label for="{{ form.date_of_birth.id_for_label }}">Date of Birth</label><span class="error" style="color:red">*</span>
+		{{ form.date_of_birth }}
+              </div>
+            </div>
+          </div>
+	  
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+		<label for="{{ form.race.id_for_label }}">Race or Ethnicity</label><span class="error" style="color:red">*</span>
+		{{ form.race }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+		
+		<label for="{{ form.phone_number.id_for_label }}">Phone Number</label>
+		{{ form.phone_number }}
+              </div>
+            </div>
+          </div>
+	  <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+		<label for="{{ form.mailing_address.id_for_label }}">Mailing Address</label>
+		{{ form.mailing_address }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+		<label for="{{ form.physical_address.id_for_label }}">Physical Address</label>
+		{{ form.physical_address }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+		<label for="{{ form.length_at_phys_addr.id_for_label }}">How long have you lived at this residence?</label>
+		{{ form.length_at_phys_addr }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+		<label for="{{ form.has_children.id_for_label }}">Do you have any children</label><span class="error" style="color:red">*</span>
+		{{ form.has_children }}
+              </div>
+            </div>
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+		<label for="{{ form.has_custody.id_for_label }}">Do you currently have custody of any children?</label><span class="error" style="color:red">*</span>
+		{{ form.has_custody }}
+              </div>
+            </div>
+          </div>
+	  <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+		<label for="{{ form.is_married_or_relationship.id_for_label }}">Are you married or in a long term relationship?</label><span class="error" style="color:red">*</span>
+		{{ form.is_married_or_relationship }}
+              </div>
+            </div>
+          </div>
+          <br>
+          <b>If you answered yes above, please fill out the information below about your spouse/significant other</b>
+          <hr>
+          <div class="row">
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+		<label for="{{ form.spouse_name.id_for_label }}">Spouse/Significant Other Name</label>
+		{{ form.spouse_name }}
+              </div>
+            </div>
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+		<label for="{{ form.spouse_age.id_for_label }}">Spouse/Significant Other Age</label>
+		{{ form.spouse_age }}
+              </div>
+            </div>
+          </div>
+          <hr>
+          <br>
+	  <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+		<label for="{{ form.level_of_education.id_for_label }}">What is your highest level of education?</label><span class="error" style="color:red">*</span>
+              {{ form.level_of_education }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+		<label for="{{ form.is_receiving_income.id_for_label }}">Are you working/receiving income?</label><span class="error" style="color:red">*</span>
+		{{ form.is_receiving_income}}
+              </div>
+            </div>
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+		<label for="{{ form.has_va_license.id_for_label }}">Do you have a valid VA license</label><span class="error" style="color:red">*</span>
+		{{ form.has_va_license }}
+              </div>
+            </div>
+          </div>
+          <b>Do you use:</b>
+          <hr>
+          <br>
+          <div class="row">
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+		<label for="{{ form.uses_alcohol.id_for_label }}">Alcohol?</label><span class="error" style="color:red">*</span>
+		{{ form.uses_alcohol }}
+              </div>
+            </div>
+	    <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+		<label for="{{ form.uses_drugs.id_for_label }}">Drugs?</label><span class="error" style="color:red">*</span>
+		{{ form.uses_drugs }}
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+		<label for="{{ form.currently_sober.id_for_label }}">Are you currently sober?</label><span class="error" style="color:red">*</span>
+		{{ form.currently_sober }}
+              </div>
+            </div>
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+		<label for="{{ form.length_of_sobriety.id_for_label }}">If so, for how long?</label>
+		{{ form.length_of_sobriety }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+		<label for="{{ form.ever_been_to_aa_na.id_for_label }}">Have you ever attended AA/NA?</label><span class="error" style="color:red">*</span>
+		{{ form.ever_been_to_aa_na }}
+              </div>
+            </div>
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+		<label for="{{ form.aa_or_na.id_for_label }}">If so, which?</label>
+		{{ form.aa_or_na }}
+              </div>
+            </div>
+          </div>
+	  <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+		<label for="{{ form.currently_in_aa_na.id_for_label }}">Do you currently attend AA/NA?</label><span class="error" style="color:red">*</span>
+		{{ form.currently_in_aa_na }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+		<label for="{{ form.last_aa_na_meeting.id_for_label }}">If not, when was the date of your last meeting?</label><span class="error" style="color:red">*</span>
+		{{ form.last_aa_na_meeting }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+                <label for="{{ form.currently_smokes.id_for_label }}">Do you currently smoke?</label><span class="error" style="color:red">*</span>
+                {{ form.currently_smokes }}
+              </div>
+            </div>
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+                <label for="{{ form.willing_to_quit.id_for_label }}">Are you willing to quit?</label><span class="error" style="color:red">*</span>
+                {{ form.willing_to_quit }}
+              </div>
+            </div>
+          </div>
+	  <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+                <label for="{{ form.has_been_homeless.id_for_label }}">Have you ever experienced homelessness?</label><span class="error" style="color:red">*</span>
+                {{ form.has_been_homeless }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+                <label for="{{ form.has_attempted_suicide.id_for_label }}">Have you ever attempted suicide?</label><span class="error" style="color:red">*</span>
+                {{ form.has_attempted_suicide }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+                <label for="{{ form.has_experienced_dom_violence.id_for_label }}">Have you ever experienced domestic violence?</label><span class="error" style="color:red">*</span>
+                {{ form.has_experienced_dom_violence }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+                <label for="{{ form.has_been_incarcerated.id_for_label }}">Have you ever been incarcerated?</label><span class="error" style="color:red">*</span>
+                {{ form.has_been_incarcerated }}
+              </div>
+            </div>
+            <div class="form-group col-lg-6">
+              <div class="fieldWrapper">
+                <label for="{{ form.number_of_incar.id_for_label }}">If so, how many times?</label>
+                {{ form.number_of_incar }}
+              </div>
+            </div>
+          </div>
+	  <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+                <label for="{{ form.currently_incar.id_for_label }}">Are you currently incarcerated?</label><span class="error" style="color:red">*</span>
+                {{ form.currently_incar }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+                <label for="{{ form.on_probation.id_for_label }}">Are you currently on probation></label><span class="error" style="color:red">*</span>
+                {{ form.on_probation }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+                <label for="{{ form.what_ghh_can_provide.id_for_label }}">What can Georgia's Healing House provide for you?</label>
+                {{ form.what_ghh_can_provide }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+                <label for="{{ form.benefits_from_residency.id_for_label }}">What benefits will you receive from becoming a resident?</label>
+                {{ form.benefits_from_residency }}
+              </div>
+            </div>
+          </div>
+	  <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+		<label for="{{ form.goals_in_months.id_for_label }}">What goals do you hope to achieve in 3, 6, and 12 months from now?</label>
+		{{ form.goals_in_months }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+                <label for="{{ form.obstacles_for_goals.id_for_label }}">What obstacles or difficulties do you see in achieving your goals??</label>
+                {{ form.obstacles_for_goals }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+                <label for="{{ form.applicant_attributes.id_for_label }}">What attributes do you possess that will make for a positive contribution to GHH??</label>
+                {{ form.applicant_attributes }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-lg-12">
+              <div class="fieldWrapper">
+                <label for="{{ form.applicant_essay.id_for_label }}">Applicant Essay</label>
+                {{ form.applicant_essay }}
+              </div>
+            </div>
+          </div>
+          <br><br>
+	  <div class="text-center">
+            <input type="submit" value="Submit">
+	  </div>
+	</form>
+      </div>
+    </div>
+    
+    <div class="col-sm-2 sidenav">
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>12 Copyright Georgia's Friends. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
+

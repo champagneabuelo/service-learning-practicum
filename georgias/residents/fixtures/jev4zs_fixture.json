@@ -1,0 +1,196 @@
+[
+	{
+		"model": "residents.interview_report", 
+		"pk": 1, 
+		"fields": 
+			{
+			"last_perm_address": "", 
+			"emergency_contact_name": "", 
+			"emergency_contact_relationship": "", 
+			"phone_number": "", 
+			"significant_other_name": "", 
+			"significant_other_relationship": "", 
+			"custody_of_children": "", 
+			"source_of_income": "", 
+			"job_history": "", 
+			"job_skills": "", 
+			"valid_drivers_license": false, 
+			"recent_arrests": "", 
+			"alcohol_history": "", 
+			"prescription_history": "", 
+			"opiates_history": "", 
+			"cocaine_history": "", 
+			"marijuana_history": "", 
+			"others_history": "", 
+			"legal_consequences": "", 
+			"health_consequences": "", 
+			"family_social_consequences": "", 
+			"work_consequences": "", 
+			"sa_treatment": "", 
+			"sa_other_notes": "", 
+			"physical_abuse_history": false, 
+			"physical_abuse_comment": "", 
+			"emotional_abuse_history": false, 
+			"emotional_abuse_comment": "", 
+			"physicians_and_location": "", 
+			"medical_problems": "", 
+			"current_medications": "", 
+			"agencies_involved": "", 
+			"reference_name": "", 
+			"reference_relationship": "", 
+			"reference_phone": "", 
+			"level_of_education": "", 
+			"interest_in_further": "", 
+			"interest_skills_hobbies": "", 
+			"for_fun": "", 
+			"specific_goals": "", 
+			"comment": "seems nice"
+			}
+	}, 
+	{
+		"model": "residents.interview_report", 
+		"pk": 2, 
+		"fields": 
+			{
+			"last_perm_address": "", 
+			"emergency_contact_name": "", 
+			"emergency_contact_relationship": "", 
+			"phone_number": "", 
+			"significant_other_name": "", 
+			"significant_other_relationship": "", 
+			"custody_of_children": "", 
+			"source_of_income": "", 
+			"job_history": "", 
+			"job_skills": "", 
+			"valid_drivers_license": false, 
+			"recent_arrests": "", 
+			"alcohol_history": "", 
+			"prescription_history": "", 
+			"opiates_history": "", 
+			"cocaine_history": "", 
+			"marijuana_history": "", 
+			"others_history": "", 
+			"legal_consequences": "", 
+			"health_consequences": "", 
+			"family_social_consequences": "", 
+			"work_consequences": "", 
+			"sa_treatment": "", 
+			"sa_other_notes": "", 
+			"physical_abuse_history": false, 
+			"physical_abuse_comment": "", 
+			"emotional_abuse_history": false, 
+			"emotional_abuse_comment": "", 
+			"physicians_and_location": "", 
+			"medical_problems": "", 
+			"current_medications": "", 
+			"agencies_involved": "", 
+			"reference_name": "", 
+			"reference_relationship": "", 
+			"reference_phone": "", 
+			"level_of_education": "", 
+			"interest_in_further": "", 
+			"interest_skills_hobbies": "", 
+			"for_fun": "", 
+			"specific_goals": "", 
+			"comment": "seems bad"
+			}
+	}, 
+	{
+		"model": "residents.interview_report", 
+		"pk": 4, 
+		"fields": 
+			{
+			"last_perm_address": "123 fucko lane", 
+			"emergency_contact_name": "me", 
+			"emergency_contact_relationship": "me", 
+			"phone_number": "703-476-3997", 
+			"significant_other_name": "huh", 
+			"significant_other_relationship": "huh", 
+			"custody_of_children": "huh", 
+			"source_of_income": "uhu", 
+			"job_history": "none", 
+			"job_skills": "non", 
+			"valid_drivers_license": false, 
+			"recent_arrests": "no", 
+			"alcohol_history": "no", 
+			"prescription_history": "no", 
+			"opiates_history": "no", 
+			"cocaine_history": "no", 
+			"marijuana_history": "no", 
+			"others_history": "no", 
+			"legal_consequences": "sometimes", 
+			"health_consequences": "weed is good for u", 
+			"family_social_consequences": "huh", 
+			"work_consequences": "u dont gotta go to werk", 
+			"sa_treatment": "yes", 
+			"sa_other_notes": "no", 
+			"physical_abuse_history": true, 
+			"physical_abuse_comment": "hm", 
+			"emotional_abuse_history": false, 
+			"emotional_abuse_comment": "hm", 
+			"physicians_and_location": "n/a", 
+			"medical_problems": "yea", 
+			"current_medications": "none", 
+			"agencies_involved": "none", 
+			"reference_name": "Jason", 
+			"reference_relationship": "me", 
+			"reference_phone": "7034763997", 
+			"level_of_education": "BDG", 
+			"interest_in_further": "hm", 
+			"interest_skills_hobbies": "hm", 
+			"for_fun": "yes", 
+			"specific_goals": "bn", 
+			"comment": "cool"
+			}
+	}, 
+	{
+		"model": "residents.resident", 
+		"pk": 1, 
+		"fields": 
+			{
+			"resident_first": "new", 
+			"resident_last": "resident", 
+			"date_of_birth": "1995-07-05", 
+			"join_date": "2016-11-14T16:33:50.109Z", 
+			"race": "", 
+			"uniqueid": "01d43303-74f4-4ca3-9499-5a08e544827e", 
+			"interview_report": null
+			}
+	}, 
+	{
+		"model": "residents.resident", 
+		"pk": 2, 
+		"fields": 
+			{
+			"resident_first": "hey", 
+			"resident_last": "there", 
+			"date_of_birth": "1995-07-05", 
+			"join_date": "2016-11-14T16:47:54.077Z", 
+			"race": "", 
+			"uniqueid": "d3d70ca5-7a5c-4811-89a7-229a58112fe4", 
+			"interview_report": 1
+			}
+	}, 
+	{
+		"model": "residents.resident_report", 
+		"pk": 1, 
+		"fields": 
+			{
+			"resident": 1, 
+			"activity_type": "Therapy", 
+			"comment": "hey", 
+			"date_added": "2016-11-14T16:34:15.530Z"
+			}
+	}, 
+	{
+		"model": "residents.resident_report", 
+		"pk": 2, 
+		"fields": 
+			{
+			"resident": 1, 
+			"activity_type": "Court", 
+			"comment": "huh", 
+			"date_added": "2016-11-14T16:49:26.861Z"
+			}
+	}
+]

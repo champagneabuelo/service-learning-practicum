@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<script type="text/javascript" src="{{ STATIC_URL }} /static/jquery-1.8.0.js">
+</script> 
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 650px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 130%;
+    }
+    
+    .addReport {
+	display: none; /* Hidden by default */ 
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+        color: white;
+        background-color: #245259;
+    }
+
+        .nav-pills > li.active > a:hover {
+            background-color: #245259;
+            color: white;
+        }
+        .nav-filter {
+	background-color:#999999;
+}
+
+.nav-pills>li>a {
+	color: #245259;
+}
+.nav-pills .open>a, .nav-pills .open>a:active, .nav-pills .open>a:focus{
+	background-color: #999999;
+    }
+
+
+#cnclBtn{
+    background-color: #eb4549;
+    color: white;
+    border: none;
+    }
+ #addReportBtn{
+    background-color: #e1f1ec;
+    color: #245259;
+    border: none;
+}
+
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="{% url 'resident_manage' %}">Georgia's Healing House</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+	<li><a href="{% url 'admin_profile' %}">Profile</a></li>
+        <li><a href="{% url 'resident_manage' %}">Residents</a></li>
+        <li><a href="{% url 'admin_staff' %}">Staff</a></li>
+	<li><a href="{% url 'admin_donate' %}">Donations</a></li>
+	<li class="active"><a href="{% url 'incident_report' %}">Incident Report</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+	<li><a href="{% url 'user_logout' %}"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <ul class="nav nav-pills nav-stacked">
+	<li class="active"><a href="{% url 'incident_report' %}">Incident Reports</a></li>
+      </ul>
+    </div>
+    <div class="col-sm-8 text-left">
+      <div class="page-header">
+	<h2 class="text-center">Incident Reports</h2>
+	</div>
+    <input id="addReportBtn" class= "btn btn-info" role="button" type="button" value="Add Incident Report" style="float:right;" >
+	<div class="addReport" id="addReport">
+	
+            <form method="post">
+                {% csrf_token %}
+                <form role="form" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                   <!--<div class="row">
+                      {{ form.as_p }}
+                      </div>-->
+		   <div class="row">
+		     <div class="form-group col-lg-6">
+		       
+		       <div class="fieldWrapper">
+			 <label for="{{ form.staff.id_for_label }}">Staff</label><span class="error" style="color:red">*</span>
+			 {{ form.staff }}
+		       </div>
+		     </div>
+		   
+		     <div class="form-group col-lg-6">
+		       
+		       <div class="fieldWrapper">
+			 <label for="{{ form.residents.id_for_label }}">Residents</label><span class="error" style="color:red">*</span>
+			 {{ form.residents }}
+		       </div>
+		     </div>
+		   </div>
+		   <br>
+		   <div class="row">
+		     <div class="form-group col-lg-6">
+		       <div class="fieldWrapper">
+			 <label for="{{ form.incident_type.id_for_label }}">Incident Type</label><span class="error" style="color:red">*</span>
+			 {{ form.incident_type }}
+		       </div>
+		     </div>
+		   
+		     <div class="form-group col-lg-6">
+		       <div class="fieldWrapper">
+			 <label for="{{ form.incident_date.id_for_label }}">Incident Date</label><span class="error" style="color:red">*</span>
+			 {{ form.incident_date }}
+		       </div>
+		     </div>
+		   </div>
+		   <br>
+		   <div class="row">
+		     <div class="form-group col-lg-12">
+		       <div class="fieldWrapper">
+			 <label for="{{ form.comment.id_for_label }}">Comment</label>
+			 {{ form.comment }}
+		       </div>
+		     </div>
+		   </div>
+                   <input type="submit" class="btn btn-info" id="addReportBtn"  value="Submit"><input type="button" class="btn btn-info" id="cnclBtn" value="Cancel"/>
+                </form>
+        </div>
+
+                <table class="table table-hover table-condensed" data-toggle="table" data-search="true"
+                       data-show-export="true" data-show-columns="true" data-show-toggle="false" data-sortable="true"
+                       data-filer-control="true" id="reportTbl">
+                    <thead class="thead-default">
+                    <tr>
+			<th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Staff Involved
+                        </th>
+			<th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Residents Involved
+                        </th>
+                        <th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Type of Incident
+                        </th>
+                        <th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Comment
+                        </th>
+                        <th class="text-center" data-field="col2" data-sortable="true" data-searchable="true" data-switchable="false">Incident Date
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    {% for Report in reports %}
+                        <tr>
+			    <td>
+				{% for part in Report.staff.all %}
+				{{ part }}
+				{% endfor %}
+			    </td>
+			    <td>
+				{% for part in Report.residents.all %}
+				{{ part }}
+				{% endfor %}
+			    </td>
+                            <td>{{ Report.incident_type }}</td>
+                            <td>{{ Report.comment }}</td>
+                            <td>{{ Report.incident_date }}</td>
+                       
+                            <td><a href="{% url 'admin_edit_report' Report.id %}" class="btn btn-info" id=addReportBtn role="button">Edit</a></td>
+			    <td><a href="{% url 'admin_delete_report' Report.id %}" class="btn btn-info" id=cnclBtn role="button">Delete</a></td>
+			   
+                        </tr>
+		    {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+            </form>
+            <br><br>
+                  
+    </div>
+    <div class="col-sm-2 sidenav">
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>12 Copyright Georgia's Friends. All Rights Reserved.</p>
+</footer>
+
+
+<script>
+
+var btn = document.getElementById("addReportBtn");
+var cncl = document.getElementById("cnclBtn");
+var tbl = document.getElementById("reportTbl");
+btn.onclick = function() {
+	addReport.style.display = "inline";
+btn.style.display = "none";
+tbl.style.display = "none";
+}
+
+cncl.onclick = function() {
+	addReport.style.display = "none";
+btn.style.display = "inline";
+tbl.style.display = "table";
+tbl.style.visibility = "visible";
+	
+}
+
+
+
+</script>
+</body>
+</html>
+

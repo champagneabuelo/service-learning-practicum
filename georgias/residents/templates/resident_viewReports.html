@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 650px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    .addReport {
+	display: none; /* Hidden by default */ 
+    }
+    
+
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+        color: white;
+        background-color: #245259;
+    }
+
+        .nav-pills > li.active > a:hover {
+            background-color: #245259;
+            color: white;
+        }
+        .nav-filter {
+	background-color:#999999;
+}
+
+.nav-pills>li>a {
+	color: #245259;
+}
+.nav-pills .open>a, .nav-pills .open>a:active, .nav-pills .open>a:focus{
+	background-color: #999999;
+    }
+    
+    button.accordion {
+    background-color: #245259;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    cursor:pointer;
+    margin:0px 0px 10px 0px;
+    padding:10px;
+    color:#fff;
+    width:100%;
+    -webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+        box-sizing: border-box;
+}
+
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+}
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="{% url 'resident_manage' %}">Georgia's Healing House</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+	<li><a href="{% url 'admin_profile' %}">Profile</a></li>
+        <li class="active"><a href="{% url 'resident_manage' %}">Residents</a></li>
+        <li><a href="{% url 'admin_staff' %}">Staff</a></li>
+	<li><a href="{% url 'admin_donate' %}">Donations</a></li>
+	<li><a href="{% url 'incident_report' %}">Incident Report</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+	<li><a href="{% url 'user_logout' %}"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <ul class="nav nav-pills nav-stacked">
+	<li class="active"><a href="{% url 'reports_view' resident.uniqueid %}">{{resident.resident_first}}'s Reports</a></li>
+	<li><a href="{% url 'resident_monthlyReports' resident.uniqueid %}">{{ resident.resident_first }}'s Monthly Reports</a></li>
+      </ul>
+    </div>
+    <div class="col-sm-8 text-left">
+    <br><br>
+            
+            <center><h1>{{ resident.resident_first }} {{ resident.resident_last }}'s Reports</h1></center>
+            
+                
+                <a href="{% url 'resident_reportsViewApplication' resident.uniqueid %}"><input type="button" value="View Application" style="float: right;"></a>
+                <a href="{% url 'resident_reportsViewInterview' resident.uniqueid %}"><input type="button" value="View Interview" style="float: right;"></a>
+                <br><br>
+                
+                <button class="accordion">Meetings</button>
+                <div class="panel">
+                <br>
+                <center><h4>Meeting Reports</h4></center>
+                <br>
+                Number of AA/NA Meetings Attended: {{ aa_and_na_count }}<br>
+                Number of House Meetings Attended: {{ house_count }}
+                <button type="button" id="editBtn" class="btn btn-default btn-sm btn-inline" style="float: right;">
+				<small><a href="{% url 'resident_addMeeting' resident.uniqueid %}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></small>
+			    </button>
+                <table class="table table-hover table-striped table-condensed" data-toggle="table" data-search="true"
+                       data-show-export="true" data-show-columns="true" data-show-toggle="false" data-sortable="true"
+                       data-filer-control="true">
+                    <thead class="thead-default">
+                    <tr>
+			<th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Meeting Date
+                        </th>
+			<th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Meeting Type
+                        </th>
+                        <th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Comments
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    {% for Meeting in meetings %}
+                        <tr>
+			    <td>
+				{{ Meeting.meeting_date }}
+			    </td>
+                            <td>
+                                {{ Meeting.meeting_type }}
+                            </td>
+                            <td>
+                                {{ Meeting.comment }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+                <br>
+              
+                <button class="accordion">Employment</button>
+                <div class="panel">
+                <br>
+                <center><h4>Employment History</h4></center>
+                 <button type="button" id="editBtn" class="btn btn-default btn-sm btn-inline" style="float: right;">
+				<small><a href="{% url 'resident_addEmployment' resident.uniqueid %}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></small>
+			    </button>
+                <table class="table table-hover table-striped table-condensed" data-toggle="table" data-search="true"
+                       data-show-export="true" data-show-columns="true" data-show-toggle="false" data-sortable="true"
+                       data-filer-control="true">
+                    <thead class="thead-default">
+                    <tr>
+			<th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Employer
+                        </th>
+			<th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Start Date                                                 
+                        </th>
+                        <th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">End Date                                                 
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    {% for Employment in employments %}
+                        <tr>
+			    <td>
+				{{ Employment.employer }}
+			    </td>
+                            <td>
+                                {{ Employment.start_date }}
+                            </td>
+                            <td>
+                                {{ Employment.end_date }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+                <br>
+                <button class="accordion">Crtical Incidents</button>
+                <div class="panel">
+                <br>
+                <center><h4>Critical Incident Reports</h4></center>
+                <br>
+                Number of Critical Incidents: {{ incident_count }}
+                <table class="table table-hover table-striped table-condensed" data-toggle="table" data-search="true"
+                       data-show-export="true" data-show-columns="true" data-show-toggle="false" data-sortable="true"
+                       data-filer-control="true">
+                    <thead class="thead-default">
+                    <tr>
+			<th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Incident Type
+                        </th>
+			<th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Date of Occurrence
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    {% for Incident in incidents %}
+                        <tr>
+			    <td>
+				{{ Incident.activity_type }}
+			    </td>
+                            <td>
+                                {{ Incident.incident_date }}
+                            </td>
+                           
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+                <br>
+                <button class="accordion">Community Programs Utilized</button>
+                <div class="panel">
+                <br>
+                <center><h4>Community Program Reports</h4></center>
+                <br>
+                 <button type="button" id="editBtn" class="btn btn-default btn-sm btn-inline" style="float: right;">
+				<small><a href="{% url 'resident_addProgram' resident.uniqueid %}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></small>
+			    </button>
+                <table class="table table-hover table-striped table-condensed" data-toggle="table" data-search="true"
+                       data-show-export="true" data-show-columns="true" data-show-toggle="false" data-sortable="true"
+                       data-filer-control="true">
+                    <thead class="thead-default">
+                    <tr>
+			<th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Program Name
+                        </th>
+			<th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Description
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    {% for Program in programs %}
+                        <tr>
+			    <td>
+				{{ Program.program_name }}
+			    </td>
+                            <td>
+                                {{ Program.description }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+                <br>
+                <button class="accordion">Other</button>
+                <div class="panel">
+                <br>
+                <center><h4>Other Reports</h4></center>
+                <br>
+                 <button type="button" id="editBtn" class="btn btn-default btn-sm btn-inline" style="float: right;">
+				<small><a href="{% url 'resident_addReport' resident.uniqueid %}"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></small>
+			    </button>
+                <table class="table table-hover table-striped table-condensed" data-toggle="table" data-search="true"
+                       data-show-export="true" data-show-columns="true" data-show-toggle="false" data-sortable="true"
+                       data-filer-control="true">
+                    <thead class="thead-default">
+                    <tr>
+			<th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Activity Type
+                        </th>
+			<th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Date Added
+                        </th>
+                        <th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Comments
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    {% for Report in reports %}
+                        <tr>
+			    <td>
+				{{ Report.activity_type }}
+			    </td>
+                            <td>
+                                {{ Report.date_added }}
+                            </td>
+                            <td>
+                                {{ Report.comment }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+                
+            </form>
+            <br><br>
+                  
+    </div>
+    <div class="col-sm-2 sidenav">
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>12 Copyright Georgia's Friends. All Rights Reserved.</p>
+</footer>
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].onclick = function(){
+        /* Toggle between adding and removing the "active" class,
+        to highlight the button that controls the panel */
+        this.classList.toggle("active");
+
+        /* Toggle between hiding and showing the active panel */
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    }
+}
+</script>
+
+</body>
+</html>
+

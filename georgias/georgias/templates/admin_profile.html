@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    .btn-warning{
+    background-color: #eb4549;
+    color: white;
+    border: none;
+    }
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 650px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    .panel-default > .panel-heading-custom {
+    background-color: #245259;
+    color: white;
+    }
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="{% url 'admin_profile' %}">Georgia's Healing House</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+	<li class="active"><a href="{% url 'admin_profile' %}">Profile</a></li>
+        <li><a href="{% url 'resident_manage' %}">Residents</a></li>
+        <li><a href="{% url 'admin_staff' %}">Staff</a></li>
+	<li><a href="{% url 'admin_donate' %}">Donations</a></li>
+	<li><a href="{% url 'incident_report' %}">Incident Report</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+	<li><a href="{% url 'user_logout' %}"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <div class="text-left">
+      <a href="{% url 'residents_download' %}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Download Resident Data</a> <br><br>
+		<a href="{% url 'incident_report_download' %}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Download Incident Report Data</a> <br><br>
+		<a href="{% url 'application_download' %}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Download Resident Application Data</a> <br><br>
+		<a href="{% url 'meeting_download' %}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Download Meeting Data</a> <br><br>
+		<a href="{% url 'community_download' %}"  type="button" class="btn btn-sm btn-warning">Download Community Program Data</a>
+      <br><br>
+      <a href="{% url 'employment_download' %}" type="button" class="btn btn-sm btn-warning">Download Employment Data</a>
+      <br><br>
+		<a href="{% url 'report_download' %}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Download Resident Report Data</a> <br><br>
+		<a href="{% url 'interview_download' %}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Download Interview Data</a> <br><br>
+	</div>	
+    </div>
+    <div class="col-sm-8 text-left"> 
+      <!--begin template-->
+      <div class="container-fluid">
+	<div class="row">
+	  <br/>
+	  <br/>
+	  
+      <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
+           
+      </div>
+     
+          <div class="panel panel-default">
+            <div class="panel-heading panel-heading-custom">
+              <h3 class="panel-title">{{ first_name }} {{ last_name }}</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+               
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>Username:</td>
+                        <td>{{ username }}</td>
+                      </tr>
+                      <tr>
+                        <td>Email:</td>
+                        <td>{{ email }}</td>
+                      </tr>
+                      <tr>
+                        <td>Address:</td>
+                        <td>{{ addr }}</td>
+                      </tr>
+                        <td>Phone Number</td>
+                        <td>{{ homeph }} (Home)<br><br>{{ workph }} (Work)
+                        </td>
+                           
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+                  
+                </div>
+              </div>
+            </div>
+                 <div class="panel-footer">
+                        
+                        <!--<span class="pull-right">-->
+                <a href="{% url 'user_edit_profile' %}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                        <!--</span>-->
+                    </div>            
+        </div>
+	<!--	<a href="{% url 'residents_download' %}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Download Resident Data</a> <br><br>
+		<a href="{% url 'incident_report_download' %}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Download Incident Report Data</a> <br><br>
+		<a href="{% url 'application_download' %}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Download Resident Application Data</a> <br><br>
+		<a href="{% url 'meeting_download' %}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Download Meeting Data</a> <br><br>
+        <a href="{% url 'report_download' %}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Download Resident Report Data</a> <br><br>
+		<a href="{% url 'interview_download' %}" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">Download Interview Data</a> <br><br>
+-->
+      </div>
+    </div>
+      <!--end template-->
+    </div>
+    <div class="col-sm-2 sidenav">
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>12 Copyright Georgia's Friends. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

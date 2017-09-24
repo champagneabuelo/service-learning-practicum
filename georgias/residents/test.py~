@@ -1,0 +1,77 @@
+from django.test import TestCase, Client
+from datetime import datetime
+from .models import Resident, Resident_Application, Resident_Report, Interview_Report
+
+
+# Create your tests here.
+
+
+class ResidentCreationTestCase(TestCase):
+
+	def test_edit_resident(self):
+		c = Client()
+		c.post('/residents/create/', {'resident_first': 'bob', 'resident_last': 'two', 'date_of_birth': '2013-04-28'})
+		apps = Resident_Application.objects.all().count()
+		#res = Resident.objects.get(resident_first='bob')
+		#c.post('/residents/view_application/{{ res.uniqueid }}', {'approve': True})
+		#allres = Resident.objects.all()
+		self.assertEqual(apps, 1)	
+
+class ReportTestCase(TestCase):
+    fixtures = ['ml4zz_fixture.json']
+
+    
+
+
+    def test_rightNumResidents(self):
+        resident_data = Resident.objects.all().count()
+        self.assertEqual(resident_data, 2)
+
+    def test_rightAssignedReports(self):
+        hasReport = Resident.objects.get(resident_first=u'SetAppointment')
+        Report = Resident_Report.objects.get(comment=u'report')
+        self.assertEqual(Report.resident, hasReport)
+
+    def test_nameWorking(self):
+        resWithLongName = Resident(resident_first=u'aaaaaaaaaaaaaaaaaaaaaaaaaaaa', resident_last=u'aaaaaaaaaaaaaaaaaaaaaaaaaaaa', date_of_birth=datetime.now(), join_date=datetime.now())
+        resWithLongName.save()
+        self.assertEqual(resWithLongName.resident_first, u'aaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+
+    def test_rightNumReports(self):
+        report_data = Resident_Report.objects.all().count()
+        self.assertEqual(report_data, 1)
+
+    def test_rightNumApplicants(self):
+        applicant_data = Resident_Application.objects.all().count()
+        self.assertEqual(applicant_data, 1)
+
+    def test_interview_application(self):
+        applicant = Resident_Application.objects.get(resident_first=u'Test')
+        self.assertEqual(applicant.interview_report, None)
+
+    def test_interview_application_create(self):
+        int_rep = Interview_Report(comment=u'hello')
+        applicant = Resident_Application.objects.get(resident_first=u'Test')
+        applicant.interview_report = int_rep
+        self.assertEqual(applicant.interview_report, int_rep)
+
+    def test_count_interviews(self):
+        interview_all = Interview_Report.objects.all().count()
+        self.assertEqual(interview_all, 2)
+
+    def test_unassigned_report(self):
+        interview_reports = Interview_Report.objects.all()
+        applicant = Resident_Application.objects.get(resident_first=u'Test')
+        bool = False
+        for interviews in interview_reports:
+            if applicant.interview_report == interview_reports:
+                bool = True
+        self.assertEqual(bool, False)
+
+    def test_name_assignment(self):
+        res1 = Resident.objects.get(resident_first=u'SetAppointment')
+        res2 = Resident.objects.get(resident_last=u'resident')
+        bool = False
+        if res1.resident_last == u'Here' and res2.resident_first == u'test':
+            bool = True
+        self.assertEqual(bool, True)

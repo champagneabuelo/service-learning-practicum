@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'show_home' %}">Georgia's Healing House</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'show_home' %}">Home</a></li>
+        <li><a href="{% url 'show_about' %}">About Us</a></li>
+        <li><a href="{% url 'show_contact' %}">Contact</a></li>
+        <li><a href="{% url 'show_donate' %}">Donate</a></li>
+		<li><a href="{% url 'show_gifts' %}">Gifts</a></li>
+		<li class="active"><a href="{% url 'show_volunteer' %}">Volunteer</a></li>
+     </ul>
+      <ul class="nav navbar-nav navbar-right">
+         <li><a href="{% url 'user_login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>      </ul>
+    </div>
+  </div>
+</nav>
+</body>
+</html>
+
+
+{% block body %} 
+    <div class="container"> 
+        <div class="row"> 
+            <br><br> 
+            <div class="col-lg-5"> 
+                <h3 class="heading">Submit Volunteer Hours</h3> 
+                <div class="contact-form"> 
+                    <form id = "user_form" method="post" action="/georgias/volunteerHours/"> 
+                        {% csrf_token %} 
+                        {{ hours_form.as_p }} 
+                        
+                        <input type="submit" value="Submit"> 
+                    </form> 
+		</div>
+
+ 		    <table class="table table-hover table-striped table-condensed" data-toggle="table" data-search="true"
+                       data-show-export="true" data-show-columns="true" data-show-toggle="false" data-sortable="true"
+                       data-filer-control="true">
+                    <thead class="thead-default">
+                    <tr>
+                        <th class="text-center" data-field="col0" data-sortable="true" data-searchable="true" data-switchable="false">Volunteer
+                        </th>
+                        <th class="text-center" data-field="col1" data-sortable="true" data-searchable="true" data-switchable="false">Date
+                        </th>
+                        <th class="text-center" data-field="col2" data-sortable="true" data-searchable="true" data-switchable="false">Number of Hours
+                        </th>  
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    {% for item in volHours %}
+                        <tr>
+                            <td>{{ item.volunteer }}</td>
+                            <td>{{ item.volDate }}</td>
+                            <td>{{ item.numHours }}</td> 
+                            <td><a href="/georgias/delete_hour/{{item.id}}"><input type="button" value="Delete"></a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table> 
+            </div> 
+        </div> 
+        <br><br> 
+    </div> 
+{% endblock %}
+
+<!--
+  <head>
+    <title>Volunteer Hours</title>
+  </head>
+  <body>
+    <h1>Submit Volunteer Hours</h1>
+
+    <form id="user_form" method="post" action="/volunteerHours/">
+
+      {% csrf_token %}
+
+      {{ hours_form.as_p }}
+
+      <input type="submit" name="submit" value="Submit"/>
+     
+    </form>
+    <table>
+    {% for item in volHours %}
+    <tr>
+        <td>{{ item.volunteer }}</td>
+	<td>{{ item.volDate }}</td>
+	<td>{{ item.numHours }}</td>
+	<td><a href='/deleteHour/{{item.id}}'>Delete</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+  </body>
+</html> --!>

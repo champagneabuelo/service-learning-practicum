@@ -1,0 +1,28 @@
+[	{
+		"model": "georgias.VolunteerHours",
+		"pk": 1,
+		"fields": {
+			"volunteer": 1,
+			"numHours": 3,
+			"volDate": "2016-10-28"
+		}
+	},
+	{
+		"model": "georgias.VolunteerHours",
+		"pk": 2,
+		"fields": {
+			"volunteer": 1,
+			"numHours": -2,
+			"volDate": "2016-10-08"
+		}
+	},
+	{
+		"model": "georgias.VolunteerHours",
+		"pk": 3,
+		"fields": {
+			"volunteer": 2,
+			"numHours": 1,
+			"volDate": "2016-08-12"
+		}
+	}
+]

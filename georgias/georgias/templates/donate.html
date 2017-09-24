@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 650px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="{% url 'show_home' %}">Georgia's Healing House</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'show_home' %}">Home</a></li>
+        <li><a href="{% url 'show_about' %}">About Us</a></li>
+        <li><a href="{% url 'show_contact' %}">Contact</a></li>
+        <li class="active"><a href="{% url 'show_donate' %}">Donate</a></li>
+	<li><a href="{% url 'show_gifts' %}">Gifts</a></li>
+	<li><a href="{% url 'show_volunteer' %}">Volunteer</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+
+         <li><a href="{% url 'user_login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+         
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+    </div>
+    <div class="col-sm-8 text-left"> 
+      <h1 align="center">Make a Donation</h1>
+      <p>
+An amazing house for 12 women became available this summer (2015); the owner wishes that the house be used to support women in recovery.  As of January 2016 we have 9 courageous women and many applicants.  The house is located near a bus line and only minutes from downtown Charlottesville. This space provides the opportunity for women to support one another while they heal and develop skills for self-reliance. From all the Furniture and supplies collected the house is now a home.
+      </p>
+      <p>
+	A fund-raising campaign was launched to obtain immediate funding for the first year. Through generous private donors and grants Georgia's Healing House opened September 2015.
+
+On going donations are needed so we can continue to support this project.  Additionally as our women find work they will contribute to supporting the house as part of their way to independence. 
+      </p>
+      <p>
+	Our first year budget is $143,480.
+      </p>
+      <h3>Levels of Support</h3>
+      <ul>
+	<li>Founding Members: $10,000+</li>
+	<li>Champions: $5,000 - $10,000</li>
+	<li>Sustainers: $1,000 - $5,000</li>
+	<li>Friends: $10 - $99</li>
+      </ul>
+      <p>
+	Donations may be mailed to <b>Georgia's Friends, PO Box 926, Charlottesville, VA 22902</b>
+      </p>
+      <p>OR</p>
+      <p><a role="button" class="btn btn-success"  href="{% url 'show_donate_page' %}">Donate Online</a>
+      </p>
+      
+    </div>
+    <div class="col-sm-2 sidenav">
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>12 Copyright Georgia's Friends. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
+

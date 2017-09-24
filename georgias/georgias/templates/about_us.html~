@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="/">Georgia's Healing House</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li class="active"><a href="{% url 'show_about' %}">About Us</a></li>
+        <li><a href="{% url 'show_contact' %}">Contact</a></li>
+        <li><a href="{% url 'show_donate' %}">Donate</a></li>
+	<li><a href="{% url 'show_gifts' %}">Gifts</a></li>
+	<li><a href="{% url 'show_volunteer' %}">Volunteer</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'login_user' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+    </div>
+    <div class="col-sm-8 text-left"> 
+      <h2>Our Mission</h2>
+      <p>Georgia’s Healing House  serves women during their initial stages of recovery from alcohol and drug dependency. Participants must be over age 18, with no direct responsibility for children, who are referred by a mental health professional/organization or by professionals in the criminal justice system.  They must be willing to participate in development of an individualized treatment plan, seek and maintain employment soon upon entry, follow all house rules, complete assigned chores and meet weekly with an assigned mentor. 45% of resident income will help support the operation of Georgia’s Healing House, with an additional 45% deposited into a personal savings account.</p>
+      <h2>Our Board Members</h2>
+      <h4>Dorothy Tompkins, M.D.</h4>
+      <p>President - Certified by and Fellow of American Society of Addiction Medicine, Am Academy of Pediatrics and Am College of Cardiology. Co-founder and Medical Director of Blue Ridge First Step (retired). Retired Associate Professor U. Va.  School of Medicine, Founder of Pantops Methadone Clinic, Past Associate Medical Director The Farley Institute. Volunteer Instructor of Substance Abuse at ACRJ (currently)</p>
+
+       <h4>Olivia Hart</h4>
+      <p>Secretary - Transition and Reentry Coordinator at ACRJ, Degree in     Criminal Justice.  Member of Crisis Intervention Team</p>
+
+
+       <h4>Patricia Schechtman</h4>
+      <p>Treasurer - Fifteen years with Carl M. Freeman Companies,     most recently Operations Manager.  Extensive administrative,     financial and facilities management.</p>
+
+
+       <h4>Ruth Wadlington</h4>
+      <p>Volunteer on many boards,  Past president of local League of Women Voters. Past chair of board of Youth Commission, Outreach Counseling Services, and Community Attention.</p>
+
+
+       <h4>Neal Goodloe</h4>
+      <p>33 years of experience in community corrections, 25 in direct client services.  Currently works as the Criminal Justice Planner for the Thomas Jefferson Area Community Criminal Justice Board.  Previously employed as a consultant for Northpointe, a national criminal justice consulting firm, from 2008-2014. Served as Chief Probation Officer, District 9, Commonwealth of Virginia 2003-2008, Deputy Chief Probation Officer 2000-2003,  Senior Probation Officer 1995-2000, Probation Officer 1985-1995. Holds a BA from University of Virginia and MPA from Virginia Commonwealth University.</p>
+
+
+       <h5>Thomas Albro, JD</h5>
+      <p>Practiced law since 1972; Past President, Virginia Trial Lawyers Association; Fellow, American College of Trial Lawyers; Former Councilman, Charlottesville City Council; Member, Lawyers Helping Lawyers Board; Former Member, Albemarle-Charlottesville Jail Board.</p>
+
+
+
+       <h4>Susan Morrow</h4>
+      <p>20 years experience in the criminal justice system as a Juvenile Justice Program Director, University Researcher, Probation Officer, and now Drug Court Coordinator.  She received her Master of Public Administration degree from the John Glenn College of Public Affairs at The Ohio State University. Presently she is the Coordinator of the Charlottesville/Albemarle Drug Treatment Court Program.</p>
+
+      
+    </div>
+    <div class="col-sm-2 sidenav">
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>12 Copyright Georgia's Friends. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
+

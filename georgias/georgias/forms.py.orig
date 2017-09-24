@@ -1,0 +1,97 @@
+import re
+from django import forms
+from django.forms import ModelForm
+from django.forms.widgets import Widget, Select, MultiWidget
+from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User
+from django.forms.extras.widgets import SelectDateWidget
+from georgias.models import UserProfile, VolunteerHours, Incident_Report
+from django.utils.safestring import mark_safe
+from residents.models import Resident
+from itertools import chain
+from django.db.models import Q
+from snippets import SelectTimeWidget, SplitSelectDateTimeWidget
+import datetime
+
+class UserForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'email', 'password']
+        widgets = {
+        'password' : forms.PasswordInput(attrs={'class':"form-control"}),
+        'username' : forms.TextInput(attrs={'class':"form-control"}),
+        'email' : forms.EmailInput(attrs={'class':"form-control"}),
+        'first_name' : forms.TextInput(attrs={'class':"form-control"}),
+        'last_name' : forms.TextInput(attrs={'class':"form-control"}),
+        }
+
+class EditUserForm(UserForm):
+    def __init__(self, *args, **kwargs):
+        super(EditUserForm, self).__init__(*args, **kwargs)
+        del self.fields['username']
+        del self.fields['password']
+
+class UserProfileForm(ModelForm):
+    class Meta:
+        USER_TYPE_CHOICES = (('ADM', 'Admin'),('STF', 'Staff'),)
+
+        model = UserProfile
+        fields = ['user_type', 'user_addr', 'user_homeph', 'user_workph']
+        labels = {
+                "user_type":_("Role"),
+        }
+        widgets = {
+        'user_type' : forms.Select(choices = USER_TYPE_CHOICES),
+        'user_addr' : forms.TextInput(attrs = {'class':"form-control"}),
+        'user_homeph': forms.TextInput(attrs = {'class':"form-control"}),
+        'user_workph': forms.TextInput(attrs = {'class':"form-control"}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args,**kwargs)
+        self.fields['user_addr'].required = False
+        self.fields['user_homeph'].required = False
+        self.fields['user_workph'].required = False
+
+class EditUserProfileForm(UserProfileForm):
+    def __init__(self, *args, **kwargs):
+        super(EditUserProfileForm, self).__init__(*args, **kwargs)
+        del self.fields['user_type']
+
+
+class VolunteerHourForm(ModelForm):
+        class Meta:
+                model = VolunteerHours
+                fields = ['volunteer', 'numHours', 'volDate']
+                labels = {
+                        "volunteer":_("Name"),
+                        "numHours":_("Number of Hours"),
+                        "volDate":_("Date"),
+                }
+                widgets = {
+                'volDate' : SelectDateWidget(years=[str(k) for k in range(2014, 2018)]),
+                }
+
+class IncidentForm(ModelForm):
+    #usern_list = [str(user.username) for user in User.objects.all()]                                                                                                                                     
+    #resi_list = [str(res.resident_first) for res in Resident.objects.all()]                                                                                                                              
+    #zipped = zip(usern_list+resi_list, usern_list+resi_list)                                                                                                                                             
+    #involved = forms.MultipleChoiceField(choices=zipped)#, widget=forms.CheckboxSelectMultiple())                                                                                                        
+    incident_date = forms.SplitDateTimeField(widget=SplitSelectDateTimeWidget(twelve_hr=True, minute_step=15, second_step=30, years=[str(k) for k in range(datetime.datetime.now().year-10, datetime.datetime.now().year+1)]), initial=datetime.datetime.now())
+<<<<<<< HEAD
+=======
+
+>>>>>>> acbc1c6593411728a6fdf8f3cbfaa934235e6453
+
+    residents = forms.ModelMultipleChoiceField(queryset = Resident.objects.all(), to_field_name="resident_last")
+
+    class Meta:
+        model = Incident_Report
+#       widgets = {                                                                                                                                                                                       
+#       'incident_date' : SplitSelectDateTimeWidget(twelve_hr=True, minute_step=15, second_step=30, years=[str(k) for k in range(datetime.datetime.now().year-10, datetime.datetime.now().year)]),        
+#       }                                                                                                                                                                                                 
+        labels = {
+        'comment' : mark_safe('Comment: <p>'),
+}
+        exclude = ['date_created', 'uniqueid']
+

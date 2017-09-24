@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 650px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="{% url 'show_home' %}">Georgia's Healing House</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'show_home' %}">Home</a></li>
+        <li><a href="{% url 'show_about' %}">About Us</a></li>
+        <li><a href="{% url 'show_contact' %}">Contact</a></li>
+        <li><a href="{% url 'show_donate' %}">Donate</a></li>
+		<li><a href="{% url 'show_gifts' %}">Gifts</a></li>
+		<li class="active"><a href="{% url 'show_volunteer' %}">Volunteer</a></li>
+     </ul>
+      <ul class="nav navbar-nav navbar-right">
+         <li><a href="{% url 'user_login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+    </div>
+    <div class="col-sm-8 text-left"> 
+      <h1 align="center">Volunteer Today</h1>
+      <p>
+	Want to help?  We would love it.  There are many needs Georgia's Healing House has and if you can be a dedicated volunteer we would like to meet you.
+      </p>
+      <p>
+	Do you have a special talent that can help women in recovery? Maybe teach a class in nutrition and exercise, budgeting and saving, art or writing.
+      </p>
+      
+      <p>
+	How about hosting a fund raising event or going to stores and setting up fresh produce and other food donations.
+	Use your imagination there is so much you can do!
+      </p>
+      <p>
+      <h4><b>Our Immediate Needs</b></h4>
+      <dl>
+	<dt>Transportation to:</dt>
+	<dd>- 12 step meetings</dd>
+	<dd>- Doctor appointments</dd>
+	<dt>Stop Smoking Programs</dt>
+      </dl>
+      
+      <h4><b>For more information</b></h4>
+      Heidi Henyon <br/>
+      VolunteerGHH@gmail.com<br/>
+      704-408-3585<br/>
+    </div>
+    <div class="col-sm-2 sidenav">
+    </div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>12 Copyright Georgia's Friends. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
+
