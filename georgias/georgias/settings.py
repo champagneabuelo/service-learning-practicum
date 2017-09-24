@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ghqugx^g8bef6%zey6kkhxg(svb1owz8=rgutdv7_cq)s_o-1u'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,11 +30,6 @@ ALLOWED_HOSTS = []
 # LOGIN_URL: set to go to this url when login_required decorator is used
 LOGIN_URL = '/login/'
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'coyanab@gmail.com'
-EMAIL_HOST_PASSWORD = 'Alcala@44'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
 # Application definition
 
 INSTALLED_APPS = [
