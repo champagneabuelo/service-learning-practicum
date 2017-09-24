@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.com/uva-slp/georgias.svg?token=ZV3LB7kBeSnciH5XtvyA&branch=master)](https://travis-ci.com/uva-slp/georgias)
-# SLP Requirements Document(Updated) - Georgia's Healing House Sys
+# SLP Requirements Document - Georgia's Healing House Sys
 Development: Django Framework
 
-## Requirements (minimum):
+## Workflow:
 I.	Create Applicant
 
 II.	Create Interview
@@ -55,7 +55,7 @@ VII.	Discharge (differentiate termination between each stage)
             ii.	Who the resident will live with
 
 
-## Requirements (desired):
+## Features:
 *	Report and statistic generation
 *	Financial tracking
 *	Nice UI that is understandable by non-technical people 
